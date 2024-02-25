@@ -1,0 +1,35 @@
+[workspace.package]
+version = "0.0.0"   
+authors = ["Romanov Simeon ArchArcheoss@proton.me" , "Mikhail Scherbina"]
+repository = "https://github.com/archeoss/bibabd"
+readme = "./README.md"
+license-file = "./LICENSE"
+edition = "2021"
+
+[workspace]
+members = [ "cli", "biba-core", "utils" ]
+default-members = [ "biba-core" ]
+resolver = "2"
+
+[profile.release]
+# Optimize for size
+# opt-level = "s"
+# Optimize for speed
+opt-level = 3 
+
+# Slightly increase perfomance and reduce binary size
+panic = "abort"
+# Reduce binary size (Removes debug info)
+strip = true
+
+[profile.release-lto]
+inherits = "release"
+# Link Time optimization, causes a bit longer compilation
+lto = true
+# Maximize size reduction optimization, causes longer compilation
+codegen-units = 1 
+
+[profile.min-size]
+inherits = "release"
+opt-level = "s"
+
